@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+{% block content %}
+  <head>
+    <meta charset="utf-8">
+    <title> FAQs </title>
+  </head>
+  <body>
+    <h1> Welcome to FAQs </h1>
+
+    <form action = "{% url 'index' %}">
+      <input type = "submit" value = "HOME"></input>
+    </form>
+
+  
+  </body>
+
+{% endblock %}
+</html>

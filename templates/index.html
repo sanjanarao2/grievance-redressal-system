@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+{% block content %}
+  <head>
+    <meta charset="utf-8">
+    <title> Welcome! </title>
+  </head>
+  <body>
+    <h1> Welcome! </h1>
+    <form action = "{% url 'complaint-registration' %}">
+      <input type = 'submit' value = 'Register complaint'></input>
+    </form>
+
+    <form action = "{% url 'faqs' %}">
+      <input type = "submit" value = "FAQs"></input>
+    </form>
+
+    <p>Login or registration is mandatory. Use youor MeeSeva credentials for login.</p>
+
+    <form action = "{% url 'login' %}">
+      <input type = "submit" value = "LOGIN"></input>
+    </form>
+
+    <form action = "{% url 'register' %}">
+      <input type = "submit" value = "REGISTER"></input>
+    </form>
+
+  </body>
+
+{% endblock %}
+</html>
