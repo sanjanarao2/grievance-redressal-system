@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.shortcuts import render,redirect
 from django.utils import timezone
 from django.http import HttpResponse
@@ -29,3 +30,10 @@ def done(request):
     "form": context
         }
     return render(request, 'complaint-registered.html', content)
+=======
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Hello, world. You're at the complaint index.")
+>>>>>>> 642a1e5a6f1e442b0b6b91cdbd0bcfaa6b902910
