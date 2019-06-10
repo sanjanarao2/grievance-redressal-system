@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+{% block content %}
+  <head>
+    <meta charset="utf-8">
+    <title> LOGOUT </title>
+  </head>
+  <body>
+    <h1> You have successfully logged out </h1>
+
+    <form action = "{% url 'index' %}">
+      <input type = "submit" value = "HOME"></input>
+    </form>
+    <p> Don't have an account?
+    <form action = "{% url 'register' %}">
+      <input type = "submit" value = "REGISTER"></input>
+    </form>
+    </p>
+
+    <p> Want to login?
+    <form action = "{% url 'login' %}">
+      <input type = "submit" value = "LOGIN"></input>
+    </form>
+    </p>
+  </body>
+
+{% endblock %}
+</html>

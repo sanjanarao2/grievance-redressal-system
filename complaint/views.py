@@ -3,8 +3,10 @@ from django.utils import timezone
 from django.http import HttpResponse
 from .models import Complaint
 from .forms import ComplaintForm
-# Create your views here.
+from django.contrib.auth.decorators import login_required
 
+# Create your views here.
+@login_required
 def home(request):
     form = ComplaintForm()
     if request.method == "POST":
@@ -17,12 +19,14 @@ def home(request):
     context = {'form':form}
     return render(request, 'complaint-register.html', context)
 
+@login_required
 def dashboard(request):
     context = {
         'complaints' : Complaint.objects.all()
     }
     return render(request, 'complaint-dashboard.html', context)
 
+@login_required
 def done(request):
     context = 0
     content = {

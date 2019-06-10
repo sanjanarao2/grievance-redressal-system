@@ -8,24 +8,11 @@
     <title> Welcome! </title>
   </head>
   <body>
-    <h1> Welcome! </h1>
-    <form action = "{% url 'complaint-registration' %}">
-      <input type = 'submit' value = 'Register complaint'></input>
-    </form>
+    <h1> Welcome to Grievance Registration Portal</h1>
 
-    <form action = "{% url 'faqs' %}">
-      <input type = "submit" value = "FAQs"></input>
-    </form>
-
-    <p>Login or registration is mandatory. Use youor MeeSeva credentials for login.</p>
-
-    <form action = "{% url 'login' %}">
-      <input type = "submit" value = "LOGIN"></input>
-    </form>
-
-    <form action = "{% url 'register' %}">
-      <input type = "submit" value = "REGISTER"></input>
-    </form>
+      {% if user.is_authenticated %}
+        <h3> Hello {{user.first_name}} {{user.last_name}} </h3>
+     {% endif %}
 
   </body>
 

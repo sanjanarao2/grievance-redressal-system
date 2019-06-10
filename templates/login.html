@@ -7,17 +7,26 @@
     <meta charset="utf-8">
     <title> LOGIN </title>
   </head>
+
+
+
   <body>
     <h1> LOGIN </h1>
+    <form method = "POST">
+      {% csrf_token %}
+      <fieldset>
+        {{ form.as_p  }}
+        <button type="submit"> Login </button>
 
-    <form action = "{% url 'index' %}">
-      <input type = "submit" value = "HOME"></input>
+      </fieldset>
     </form>
+    <br>
     <p> Don't have an account?</p>
     <form action = "{% url 'register' %}">
       <input type = "submit" value = "REGISTER"></input>
     </form>
 
+    
   </body>
 
 {% endblock %}

@@ -8,7 +8,7 @@
     <title>Complaint Dashboard</title>
   </head>
   <body>
-    <h1> Welcome to complaint dashboard </h1>
+    <h1> Complaint Dashboard </h1>
     <hr>
     {% for complaint in complaints %}
       <h3>Token: {{complaint.token}}</h3>
@@ -21,7 +21,7 @@
     <form action="{% url 'complaint-registration' %}">
   	    <input type="submit" value="Register Complaint"><br/>
     </form>
-    
+
     <form action="{% url 'index' %}">
         <input type="submit" value="HOME"><br/>
     </form>

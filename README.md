@@ -5,3 +5,5 @@ It can be run on the command line using command "python3 manage.py runserver".
 Superuser:
   username: testing
   password: esd@telwap
+
+All other users have password: testing123

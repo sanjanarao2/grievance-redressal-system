@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Complaint(models.Model):
     date = models.DateTimeField(default=timezone.now)
-#   author = models.ForeignKey(User, on_delete=models.CASCADE)
+ #   author = models.ForeignKey(User, on_delete=models.CASCADE)
     contact = models.CharField(max_length=10,blank=True, null=True)
     email = models.EmailField(default='123@xyz.org')
     complaint = models.CharField(max_length=1000)
