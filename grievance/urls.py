@@ -16,6 +16,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('register/', compviews.home, name='complaint-registration'),
     path('dashboard/', compviews.dashboard, name='complaint-dashboard'),
+    path('mycomplaints/', compviews.mycomplaints, name='complaint-view'),
     path('done/', compviews.done, name='complaint-registered'),
 
 ]

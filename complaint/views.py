@@ -35,6 +35,14 @@ def dashboard(request):
     return render(request, 'complaint-dashboard.html', context)
 
 @login_required
+def mycomplaints(request):
+    context = {
+        'details' : request.user,
+        'complaints' : Complaint.objects.filter(author= request.user)
+    }
+    return render(request, 'complaint-view.html', context)
+
+@login_required
 def done(request):
     context = 0
     content = {

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+{% block content %}
+
+  <head>
+    <meta charset="utf-8">
+    <title>My Complaints</title>
+  </head>
+  <body>
+    
+    <h1> My profile    </h1>
+    <hr>
+    <p> First Name: {{details.first_name}}       </p>
+    <p> Last Name: {{details.last_name}}       </p>
+    <p> Email: {{details.email}}       </p>
+    <p> Phone number: {{details.phone}}       </p>
+    <p> House Number: {{details.housenumber}}       </p>
+    <p> Locality: {{details.locality}}       </p>
+    <p> Village: {{details.village}}       </p>
+    <p> Mandal: {{details.mandal}}       </p>
+    <p> District: {{details.district}}       </p>
+    <p> Pincode: {{details.pincode}}       </p>
+    <h2> My Complaints </h2>
+    <hr>
+    
+    {% for complaint in complaints %}
+      <h3>Token: {{complaint.token}}</h3>
+      <p>Grievance: {{ complaint.complaint }} </p>
+      <p> By {{ complaint.author.username }} at {{ complaint.date }}</p>
+      <hr>
+
+    {% endfor %}
+
+    <form action="{% url 'complaint-registration' %}">
+  	    <input type="submit" value="Register Complaint"><br/>
+    </form>
+
+    <form action="{% url 'index' %}">
+        <input type="submit" value="HOME"><br/>
+    </form>
+
+  </body>
+{% endblock content %}
+
+</html>
