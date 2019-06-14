@@ -13,7 +13,7 @@
     {% for complaint in complaints %}
       <h3>Token: {{complaint.token}}</h3>
       <p>Grievance: {{ complaint.complaint }} </p>
-      <p> By {{ complaint.author }} at {{ complaint.date }}</p>
+      <p> By {{ complaint.author.email }} at {{ complaint.date }}</p>
       <hr>
 
     {% endfor %}
