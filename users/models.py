@@ -2,10 +2,12 @@ from django.db import models
 from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, BaseUserManager
 
 class User_manager(BaseUserManager):
-    def create_user(self, username, email, phone, housenumber, locality, village, mandal, district, pincode, password):
+    def create_user(self, username, first_name, last_name, email, phone, housenumber, locality, village, mandal, district, pincode, password):
         email = self.normalize_email(email)
         user = self.model(
             username = username,
+            first_name = first_name,
+            last_name = last_name,
             email = email,
             phone = phone,
             housenumber = housenumber,
@@ -22,6 +24,8 @@ class User_manager(BaseUserManager):
     def create_superuser(self, username, email, password=None):
         user = self.create_user(
             username=username,
+            first_name = "Default",
+            last_name = "Superuser",
             email = email,
             phone = "Null",
             housenumber = "Null",
@@ -29,7 +33,7 @@ class User_manager(BaseUserManager):
             village = "Null",
             mandal = "Null",
             district = "Null",
-            pincode = "Null", 
+            pincode = "Null",
             password = password
         )
         user.is_superuser = True
@@ -38,8 +42,10 @@ class User_manager(BaseUserManager):
         return user
 
 class User(PermissionsMixin, AbstractBaseUser):
-    username = models.CharField(max_length=32, unique=True, )
-    email = models.EmailField(max_length=32)
+    username = models.CharField(max_length=32, unique=True)
+    first_name = models.CharField(max_length=32)
+    last_name = models.CharField(max_length=32)
+    email = models.EmailField(max_length=32, unique=True)
     phone = models.CharField(max_length=10)
     housenumber = models.CharField(max_length=255)
     locality = models.CharField(max_length=255)

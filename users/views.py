@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-#from .forms import RegistrationForm
+from .forms import RegistrationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -13,14 +13,11 @@ def login(request):
     return render(request, 'login.html')
 
 def register(request):
-#    if request.method == 'POST':
-#        form = RegistrationForm(request.POST)
-#        if form.is_valid():
-#            form.save()
-#            username = form.cleaned_data.get('first_name')
-#            messages.success(request, f'Congratulations on registration {username}! Login to proceed')
-#            return redirect('login')
-#    else:
-#        form = RegistrationForm()
-    form = 0
-    return render(request, 'register.html', {"form" : form })
+    form = RegistrationForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        first_name = form.cleaned_data.get('first_name')
+        messages.success(request, f'Congratulations on registration {first_name}! Login to proceed')
+        return redirect('login')
+    else:
+        return render(request, 'register.html', {"form" : form })
