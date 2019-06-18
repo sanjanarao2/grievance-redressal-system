@@ -1,19 +1,35 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from django.utils import timezone
+from django.utils import timezone, six
 from django.http import HttpResponse
 from .models import Complaint
 from .forms import ComplaintForm,editprofileform,complaintredressal
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model,update_session_auth_hash
 from django.contrib.auth.forms import UserChangeForm,PasswordChangeForm
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+
+def group_required(group, login_url=None, raise_exception=False):
+    def check_perms(user):
+        if isinstance(group, six.string_types):
+            groups =(group, )
+        else:
+            groups = group
+        if user.groups.filter(name__in=groups).exists():
+            return True
+        if raise_exception:
+            raise PermissionDenied
+        #if group == 'staff':
+        #    user.is_staff=True
+        #elif group == 'manager':
+        #    user.is_manager=True
+        return False
+    return user_passes_test(check_perms, login_url=login_url)
 
 
 
-from django.contrib.auth.decorators import login_required
 
-
-
-# Create your views here.
 @login_required
 def home(request):
 
@@ -34,6 +50,7 @@ def home(request):
 
 
 @login_required
+@group_required('staff')
 def dashboard(request):
     context = {
         'complaints' : Complaint.objects.all()
@@ -97,6 +114,7 @@ def done(request):
 
 
 @login_required
+@group_required('staff')
 def redressal(request, cmp_id):
     comp = get_object_or_404(Complaint,pk=cmp_id)
     if request.method == "POST":
