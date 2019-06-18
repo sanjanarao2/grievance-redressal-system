@@ -126,3 +126,55 @@ class UserAdminChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
+
+
+class changedetails(forms.ModelForm):
+    
+
+    class Meta:
+        model = User
+        fields =(
+            
+            'email',
+            'phone',
+            'housenumber',
+            'locality',
+            'village',
+            'mandal',
+            'district',
+            'pincode'
+        )
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        qs = User.objects.filter(email=email)
+        if qs.count()>1:
+            raise forms.ValidationError("E-mail id is already taken. Please enter a valid email id")
+        return email
+
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+        ps = User.objects.filter(phone=phone)
+        if ps.count()>1:
+            raise forms.ValidationError("Phone number is already take. Please enter a unique phone number.")
+        if int(phone) and int(phone)>1000000000 and int(phone)<= 9999999999:
+            return phone
+        else:
+            raise forms.ValidationError("Please enter a valid phone number")
+
+    def clean_pincode(self):
+        pincode = self.cleaned_data.get('pincode')
+        if int(pincode) and int(pincode)>500000 and int(pincode)<600000:
+            return pincode
+        else:
+            raise forms.ValidationError("Please enter a valid pincode")
+
+
+
+    
+    def save(self, commit=True):
+        user = super(changedetails, self).save(commit=True)
+        #user.set_password(self.cleaned_data['password1'])
+        if commit:
+            user.save()
+        return user

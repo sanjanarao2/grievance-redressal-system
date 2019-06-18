@@ -41,13 +41,20 @@ def edit(request):
     
     #person = get_user_model()
     if request.method == "POST":
-        form = editprofileform(request.POST,instance = request.user)     
+        form = editprofileform(request.POST,instance = request.user,initial={'email':request.user.email,'phone':request.user.phone})     
         form.actual_user = request.user
         #if form.is_valid():
         form.save()
         return redirect('/mycomplaints')
     else:
-        form = editprofileform()     
+        form = editprofileform(initial={'email':request.user.email,
+            'phone':request.user.phone,
+            'housenumber':request.user.housenumber,
+            'locality':request.user.locality,
+            'village':request.user.village,
+            'mandal':request.user.mandal,
+            'district':request.user.district,
+            'pincode':request.user.pincode})     
         args = {'form':form}
         return render(request, 'edit.html', args)
 
