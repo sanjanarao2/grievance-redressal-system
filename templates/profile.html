@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+{% block content %}
+
+  <head>
+    <meta charset="utf-8">
+    <title>My Complaints</title>
+  </head>
+  <body>
+
+    <h1> My profile    </h1>
+    <hr>
+    <p> First Name: {{details.first_name}} </p>
+    <p> Last Name: {{details.last_name}} </p>
+    <p> Email: {{details.email}} </p>
+    <p> Phone number: {{details.phone}} </p>
+    <p> House Number: {{details.housenumber}} </p>
+    <p> Locality: {{details.locality}} </p>
+    <p> Village: {{details.village}} </p>
+    <p> Mandal: {{details.mandal}} </p>
+    <p> District: {{details.district}} </p>
+    <p> Pincode: {{details.pincode}} </p>
+    <a href="{% url 'edit' %}">Edit profile</a> <br>
+    <a href ="{% url 'edit-password' %}">Change Password</a>
+
+    <hr>
+  </body>
+{% endblock content %}
+
+</html>

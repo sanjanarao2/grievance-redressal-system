@@ -16,12 +16,19 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('register/', compviews.home, name='complaint-registration'),
     path('dashboard/', compviews.dashboard, name='complaint-dashboard'),
+    path('mycomplaints/', compviews.mycomplaints, name='mycomplaints'),
+    path('myprofile/', compviews.myprofile, name='myprofile'),
+    path('edit/', compviews.edit, name='edit'),
+    path('changepassword/', compviews.passwordchange, name='edit-password'),
     path('done/', compviews.done, name='complaint-registered'),
+    path('/', include('django.contrib.auth.urls')),
 
-    path('password_reset/', auth_views.password_reset, name='password_reset'),
-    path('password_reset/done/', auth_views.password_reset_done, name='password_reset_done'),
-    path('reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/',
-        auth_views.password_reset_confirm, name='password_reset_confirm'),
-    path('reset/done/', auth_views.password_reset_complete, name='password_reset_complete'),
-])
+
+    # path('password_reset/', auth_views.password_reset, name='password_reset'),
+    # path('password_reset/done/', auth_views.password_reset_done, name='password_reset_done'),
+    # path('reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/',
+    #     auth_views.password_reset_confirm, name='password_reset_confirm'),
+    # path('reset/done/', auth_views.password_reset_complete, name='password_reset_complete'),
+    path('manager/',compviews.manager,name='manager'),
+
 ]

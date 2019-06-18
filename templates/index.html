@@ -12,6 +12,10 @@
 
       {% if user.is_authenticated %}
         <h3> Hello {{user.first_name}} {{user.last_name}} </h3>
+        <p>You can check your complaints here</p>
+        <form action = "{% url 'mycomplaints' %}">
+          <input type = "submit" value = "My Complaints"></input>
+        </form>
      {% endif %}
 
   </body>
