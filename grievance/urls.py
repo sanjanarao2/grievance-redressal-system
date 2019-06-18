@@ -17,6 +17,8 @@ urlpatterns = [
     path('register/', compviews.home, name='complaint-registration'),
     path('dashboard/', compviews.dashboard, name='complaint-dashboard'),
     path('mycomplaints/', compviews.mycomplaints, name='complaint-view'),
+    path('edit/', compviews.edit, name='edit'),
+    path('changepassword/', compviews.passwordchange, name='edit-password'),
     path('done/', compviews.done, name='complaint-registered'),
 
 ]
