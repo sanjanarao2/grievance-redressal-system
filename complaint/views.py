@@ -1,13 +1,17 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,get_object_or_404,redirect
 from django.utils import timezone
 from django.http import HttpResponse
 from .models import Complaint
-from .forms import ComplaintForm,editprofileform
+from .forms import ComplaintForm,editprofileform,complaintredressal
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model,update_session_auth_hash
 from django.contrib.auth.forms import UserChangeForm,PasswordChangeForm
 
+
+
 from django.contrib.auth.decorators import login_required
+
+
 
 # Create your views here.
 @login_required
@@ -90,3 +94,20 @@ def done(request):
     "form": context
         }
     return render(request, 'complaint-registered.html', content)
+
+
+@login_required
+def redressal(request, cmp_id):
+    comp = get_object_or_404(Complaint,pk=cmp_id)
+    if request.method == "POST":
+        form =complaintredressal(request.POST)
+        if form.is_valid():  
+            comp.status = form.cleaned_data['status']
+            comp.resolution = form.cleaned_data['resolution'] 
+            comp.resolved_by = request.user.username
+            comp.save()
+            return redirect('/dashboard') 
+    
+    form = complaintredressal()
+
+    return render(request, 'complaint-redressal.html',{'comp':comp,'form':form})

@@ -21,7 +21,10 @@
     <p> Mandal: {{details.mandal}}       </p>
     <p> District: {{details.district}}       </p>
     <p> Pincode: {{details.pincode}}       </p>
-    <li><a href="{% url 'edit' %}">Edit profile</a></li>
+    
+    <form action="{% url 'edit' %}">
+  	    <input type="submit" value="Edit Profile"><br/>
+    </form>
     <hr>
     <h2> My Complaints </h2>
     <hr>
@@ -29,6 +32,13 @@
     {% for complaint in complaints %}
       <h3>Token: {{complaint.token}}</h3>
       <p>Grievance: {{ complaint.complaint }} </p>
+      <p>Status: {{complaint.status}}</p>
+      {% if complaint.status == "resolved"%}
+      <p>Resolution: {{complaint.resolution}}</p>
+      <p>Resolved By: {{complaint.resolved_by}}</p>
+      {% else %}
+
+      {% endif %}
       <p> By {{ complaint.author.username }} at {{ complaint.date }}</p>
       <hr>
 
