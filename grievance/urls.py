@@ -20,5 +20,5 @@ urlpatterns = [
     path('edit/', compviews.edit, name='edit'),
     path('changepassword/', compviews.passwordchange, name='edit-password'),
     path('done/', compviews.done, name='complaint-registered'),
-
+    path('manager/',userviews.manager,name='manager'),
 ]
