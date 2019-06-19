@@ -2,9 +2,37 @@ from django.db import models
 from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
+from multiselectfield import MultiSelectField
+
+
+
+m1="Mee Seva"
+m2="T-App"
+m3="T-Wallet"
+m4="Citizen"
+mode_choice = ((m1,"Mee Seva"),(m2,"T-App"),(m3,"T-Wallet"),(m4,"Citizen"))
+
+c1="Revenue"
+c2="Food and Civil Supplies"
+c3="GHMC"
+c4="Commercial Taxes"
+c5="SPDCL"
+c6="NPDCL"
+c7="Others"
+c8="Citizen"
+category_choice = (
+    (c1,"Revenue"),
+    (c2,"Food and Civil Supplies"),
+    (c3,"GHMC"),
+    (c4,"Commercial Taxes"),
+    (c5,"SPDCL"),
+    (c6,"NPDCL"),
+    (c7,"Others"),
+    (c8,"Citizen")
+)
 
 class User_manager(BaseUserManager):
-    def create_user(self, username, first_name, last_name, email, phone, housenumber, locality, village, mandal, district, pincode, password):
+    def create_user(self, username, first_name, last_name, email, phone, housenumber, locality, village, mandal, district, pincode, password, mode, category):
         email = self.normalize_email(email)
         user = self.model(
             username = username,
@@ -17,7 +45,9 @@ class User_manager(BaseUserManager):
             village = village,
             mandal = mandal,
             district = district,
-            pincode = pincode
+            pincode = pincode,
+            mode = m4,
+            category = c8
         )
         user.set_password(password)
         user.save(using=self.db)
@@ -36,6 +66,8 @@ class User_manager(BaseUserManager):
             mandal = "Null",
             district = "Null",
             pincode = "Null",
+            category = c8,
+            mode = m4,
             password = password
         )
         user.is_superuser = True
@@ -44,6 +76,7 @@ class User_manager(BaseUserManager):
         return user
 
 class User(PermissionsMixin, AbstractBaseUser):
+
     username = models.CharField(max_length=32, unique=True)
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
@@ -55,6 +88,9 @@ class User(PermissionsMixin, AbstractBaseUser):
     mandal = models.CharField(max_length=255)
     district = models.CharField(max_length=255)
     pincode = models.CharField(max_length=6)
+    mode = MultiSelectField(max_length = 255, choices=mode_choice, default = mode_choice[3][0])
+    category = MultiSelectField(max_length = 255, choices=category_choice, default = category_choice[7][0])
+
 
 #    gender_choices = [("M", "Male"), ("F", "Female"), ("O", "Others")]
 #    gender = models.CharField(choices=gender_choices, default="M", max_length=1)
@@ -67,6 +103,7 @@ class User(PermissionsMixin, AbstractBaseUser):
 
     def __str__(self):
         return self.username
+
     class Meta:
         permissions = (("can view dashboard","To open dashboard"),
             ("can view manager level","To open manager dashboard"))
