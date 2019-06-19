@@ -22,6 +22,8 @@ status_choice = ((s1,"unresolved"),(s2,"resolved"),(s3,"spam"))
 class ComplaintForm(forms.Form):
     complaint = forms.CharField(max_length=1000, required=True)
     dept = forms.CharField(label='Department', widget=forms.Select(choices=dept_choice))
+#    image = forms.ImageField(upload_to='media/', null=True, blank=True)
+#	file = forms.ImageField(upload_to='images/', null=True, blank=True)
 
 class complaintredressal(forms.Form):
 

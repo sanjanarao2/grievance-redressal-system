@@ -122,6 +122,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'grievance/static/')]
 STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'login'
@@ -131,10 +133,11 @@ LOGOUT_URL = 'logout'
 #EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
 #MAILER_EMAIL_BACKEND = EMAIL_BACKEND
 
-#EMAIL_USE_TLS = True
-#EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_HOST_USER = "esdgrievance@gmail.com"
-#EMAIL_HOST_PASSWORD = "esd@telwap"
-#EMAIL_PORT = 587
+# #To email the client their forgot password link
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = "esdgrievance@gmail.com"
+# EMAIL_HOST_PASSWORD = "esd@telwap"
+# EMAIL_PORT = 587
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

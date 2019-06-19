@@ -25,12 +25,13 @@
     <form action = "{% url 'register' %}">
       <input type = "submit" value = "REGISTER"></input>
     </form>
-    <p>Forgot password?</p>
-   
-    <form> 
-    <a href="{% url 'password_reset' %}">Forgot password?</a>
-    </form>
-    
+
+
+<p>    <form>
+    Forgot password?
+    <a href="{% url 'password_reset' %}"> Click here to change</a>
+  </form> </p>
+
   </body>
 
 {% endblock %}

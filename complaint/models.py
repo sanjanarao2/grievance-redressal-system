@@ -21,10 +21,11 @@ class Complaint(models.Model):
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     dept = models.CharField(max_length = 15, choices = dept_choice, default = d4)
     complaint = models.CharField(max_length=1000)
+    status = models.CharField(max_length = 15, choices = status_choice, default = s1)
     resolution = models.CharField(max_length=1000)
     resolved_by = models.CharField(max_length = 32, default=None, blank=True, null=True)
-
-#   photo = models.ImageField(blank=True,null=True)
+#	image = models.ImageField(upload_to='images/', null=True, blank=True)
+#	file = models.ImageField(upload_to='images/', null=True, blank=True)
 
     def token(self):
         self.token = 'CMPLNOO'+str(self.id)

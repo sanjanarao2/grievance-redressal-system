@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.utils import timezone, six
 from django.http import HttpResponse
 from .models import Complaint
@@ -119,3 +119,22 @@ def done(request):
 @group_required('manager')
 def manager(request):
     return render(request, 'manager.html')
+
+
+
+@login_required
+@group_required('staff')
+def redressal(request, cmp_id):
+    comp = get_object_or_404(Complaint,pk=cmp_id)
+    if request.method == "POST":
+        form =complaintredressal(request.POST)
+        if form.is_valid():
+            comp.status = form.cleaned_data['status']
+            comp.resolution = form.cleaned_data['resolution']
+            comp.resolved_by = request.user.username
+            comp.save()
+            return redirect('/dashboard')
+
+    form = complaintredressal()
+
+    return render(request, 'complaint-redressal.html',{'comp':comp,'form':form})
