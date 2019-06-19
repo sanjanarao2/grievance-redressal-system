@@ -38,7 +38,10 @@ def home(request):
             context = Complaint()
             context.author = request.user
             context.complaint = form.cleaned_data['complaint']
+            context.channel = form.cleaned_data['channel']
+            context.stream = form.cleaned_data['stream']
             context.dept = form.cleaned_data['dept']
+            #context.file = request.FILES['file']
             context.save()
             return render(request, 'complaint-registered.html', {'form':context})
 
