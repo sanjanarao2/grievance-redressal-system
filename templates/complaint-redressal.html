@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+{% block content %}
+  <head>
+    <meta charset="utf-8">
+    <title>Complaint Registration</title>
+  </head>
+
+
+
+  <body>
+        <h3>Token: {{comp.token}}</h3>
+        <p>Department: {{comp.dept}}</p>
+        <p>Status: {{comp.status}}</p>
+        <p> By {{ comp.author.username }} at {{ comp.date }}</p>
+        <p>Grievance: {{ comp.complaint }} </p>
+    <form method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class='button' type="submit" value="Submit" >
+    </form>
+
+
+
+  </body>
+{% endblock content %}
+
+</html>
+

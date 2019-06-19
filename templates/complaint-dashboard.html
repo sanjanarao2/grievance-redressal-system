@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+{% block content %}
+
+  <head>
+    <meta charset="utf-8">
+    <title>Complaint Dashboard</title>
+  </head>
+  <body>
+    <h1> Complaint Dashboard </h1>
+    <hr>
+    {% for complaint in complaints %}
+      <h3>Token: {{complaint.token}}</h3>
+      <p>Grievance: {{ complaint.complaint }} </p>
+      <p> By {{ complaint.author.username }} at {{ complaint.date }}</p>
+      <p>Status: {{complaint.status}}</p>
+      {% if complaint.status == "resolved"%}
+      <p>Resolved By: {{complaint.resolved_by}}</p>
+      {% else %}
+
+      {% endif %}
+      <form action="/dashboard/{{complaint.pk}}">
+          <input type="submit" value="resolve"><br/>
+      </form>
+      
+      <hr>
+
+    {% endfor %}
+
+    <form action="{% url 'complaint-registration' %}">
+  	    <input type="submit" value="Register Complaint"><br/>
+    </form>
+
+    <form action="{% url 'index' %}">
+        <input type="submit" value="HOME"><br/>
+    </form>
+
+  </body>
+{% endblock content %}
+
+</html>

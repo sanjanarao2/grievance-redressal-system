@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+{% block content %}
+  <head>
+    <meta charset="utf-8">
+    <title> LOGIN </title>
+  </head>
+
+
+
+  <body>
+    <h1> LOGIN </h1>
+    <form method = "POST">
+      {% csrf_token %}
+      <fieldset>
+        {{ form.as_p  }}
+        <button type="submit"> Login </button>
+
+      </fieldset>
+    </form>
+    <br>
+    <p> Don't have an account?</p>
+    <form action = "{% url 'register' %}">
+      <input type = "submit" value = "REGISTER"></input>
+    </form>
+
+
+</body>
+{% endblock %}
+
+</html>
