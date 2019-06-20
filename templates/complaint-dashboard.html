@@ -1,25 +1,71 @@
 {% extends "base.html" %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+    
 {% block content %}
 
   <head>
     <meta charset="utf-8">
     <title>Complaint Dashboard</title>
   </head>
+  
   <body>
+    
     <h1> Complaint Dashboard </h1>
     <hr>
-    {% for complaint in complaints %}
+    
+    <form method='GET' action=''>
+        {% csrf_token %}
+        <!----{{ form.as_p }}-->
+        <h2>Select Channel</h2>
+        <select name = "c">
+          <option >MeeSeva</option>
+          <option >T-App Folio</option>
+          <option >T-Wallet</option>
+          <option >All</option>
+          
+
+        </select>
+        <h2>Select department</h2>
+        <select name = "d">
+          <option >Revenue</option>
+          <option >Food And Civil Supplies</option>
+          <option >GHMC</option>
+          <option >Commercial Taxes</option>
+          <option >SPDCL</option>
+          <option >NPDCL</option>
+          <option >Others</option>
+          <option >All</option>
+
+        
+        
+        <input class='button' type="submit"  value="Submit" >
+      
+    </form>
+    
+
+    
+  
+    
+    <hr>
+    
+    
+
+    {% for complaint in complaints_unre %}
+      {% if complaint.sle_date < dat %}
+      <h3><span style="background-color: blue"> Token: {{complaint.token}}</span></h3>
+      {% else %}
       <h3>Token: {{complaint.token}}</h3>
+      {% endif %}
       <p>Grievance: {{ complaint.complaint }} </p>
+      <p>Channel:  {{ complaint.channel }} </p>
+      <p>Department:  {{ complaint.dept }} </p>
       <p> By {{ complaint.author.username }} at {{ complaint.date }}</p>
       <p>Status: {{complaint.status}}</p>
-      {% if complaint.status == "resolved"%}
-      <p>Resolved By: {{complaint.resolved_by}}</p>
-      {% else %}
+      <p>SLE: {{complaint.sle_date}}</p>
+      
 
-      {% endif %}
+      
       <form action="/dashboard/{{complaint.pk}}">
           <input type="submit" value="resolve"><br/>
       </form>
@@ -27,6 +73,24 @@
       <hr>
 
     {% endfor %}
+
+    {% for complaint in complaints_re %}
+      <h3>Token: {{complaint.token}}</h3>
+      <p>Grievance: {{ complaint.complaint }} </p>
+      <p>Channel:  {{ complaint.channel }} </p>
+      <p>Department:  {{ complaint.dept }} </p>
+      <p> By {{ complaint.author.username }} at {{ complaint.date }}</p>
+      <p>Status: {{complaint.status}}</p>
+      <p>Resolved By: {{complaint.resolved_by}}</p>
+      
+      <form action="/dashboard/{{complaint.pk}}">
+          <input type="submit" value="resolve"><br/>
+      </form>
+      
+      <hr>
+
+    {% endfor %}
+   
 
     <form action="{% url 'complaint-registration' %}">
   	    <input type="submit" value="Register Complaint"><br/>

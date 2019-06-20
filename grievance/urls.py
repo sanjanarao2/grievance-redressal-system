@@ -4,7 +4,8 @@ from django.urls import path, include
 from complaint import views as compviews
 from users import views as userviews
 from django.contrib.auth import views as auth_views
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('complaint/', include('complaint.urls')),
@@ -16,8 +17,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('register/', compviews.home, name='complaint-registration'),
     path('dashboard/', compviews.dashboard, name='complaint-dashboard'),
-    path('dashboard/<int:cmp_id>', compviews.redressal, name='complaint-redressal'),
     path('mycomplaints/', compviews.mycomplaints, name='mycomplaints'),
+    path('dashboard/<int:cmp_id>', compviews.redressal, name='complaint-redressal'),
     path('myprofile/', compviews.myprofile, name='myprofile'),
     path('edit/', compviews.edit, name='edit'),
     path('changepassword/', compviews.passwordchange, name='edit-password'),
@@ -32,4 +33,4 @@ urlpatterns = [
     # path('reset/done/', auth_views.password_reset_complete, name='password_reset_complete'),
     path('manager/',compviews.manager,name='manager'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
