@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.utils import timezone, six
 from django.http import HttpResponse
 from .models import Complaint
-from .forms import ComplaintForm,editprofileform, complaintredressal
+from .forms import ComplaintForm,editprofileform, complaintredressal, dashboardform
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model,update_session_auth_hash
 from django.contrib.auth.forms import UserChangeForm,PasswordChangeForm
@@ -51,13 +51,30 @@ def home(request):
     context = {'form':form}
     return render(request, 'complaint-register.html', context)
 
-
 @login_required
 @group_required('staff', 'manager')
 def dashboard(request):
-    context = {
-        'complaints' : Complaint.objects.all()
-    }
+    form = dashboardform()
+    dat = timezone.now()
+    dep=request.GET.get("d")
+    cha=request.GET.get("c")
+    complaints_unre = Complaint.objects.filter(dept="department0",status = "unresolved")
+    complaints_re = Complaint.objects.filter(dept="department0",status ="resolved")
+    if dep and cha:
+
+        complaints_unre = Complaint.objects.filter(dept=dep,channel=cha,status = "unresolved")
+        complaints_re = Complaint.objects.filter(dept=dep,channel=cha,status ="resolved")
+    if dep == "All" and cha !="All":
+        complaints_unre = Complaint.objects.filter(channel=cha,status = "unresolved")
+        complaints_re = Complaint.objects.filter(channel=cha,status ="resolved")
+    if cha == "All"and dep != "All":
+        complaints_unre = Complaint.objects.filter(dept=dep,status = "unresolved")
+        complaints_re = Complaint.objects.filter(dept=dep,status ="resolved")
+    if dep == "All" and cha =="All":
+        complaints_unre = Complaint.objects.filter(status = "unresolved")
+        complaints_re = Complaint.objects.filter(status ="resolved")
+
+    context = {'form':form,'complaints_unre' : complaints_unre,'complaints_re':complaints_re,'dat':dat}
     return render(request, 'complaint-dashboard.html', context)
 
 @login_required
@@ -137,8 +154,7 @@ def redressal(request, cmp_id):
             comp.status = form.cleaned_data['status']
             comp.resolution = form.cleaned_data['resolution']
             comp.resolved_by = request.user.username
-            comp.image = form.cleaned_data['image']
-            comp.file = form.cleaned_data['file']
+
             comp.save()
             return redirect('/dashboard')
 

@@ -50,6 +50,9 @@ class complaintredressal(forms.Form):
     resolution = forms.CharField(max_length=1000)
     status = forms.CharField(label='Status', widget=forms.Select(choices=status_choice))
 
+class dashboardform(forms.Form):
+
+    dept = forms.CharField(label='Department', widget=forms.Select(choices=dept_choice))
 
 class editprofileform(changedetails):
     """phone = forms.CharField(max_length=10)
